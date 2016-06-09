@@ -1,5 +1,6 @@
 require_relative 'racer_utils'
 
+
 class RubyRacer
   attr_reader :players, :length
 
@@ -32,11 +33,35 @@ players = ['a', 'b']
 game = RubyRacer.new(players)
 
 # This clears the screen, so the fun can begin
+def clear_screen!
+  print "\e[2J"
+end
 clear_screen!
+
+class Die
+  def initialize(sides = 6)
+    @sides = sides
+  end
+
+  def roll
+    1 + rand(@sides)
+  end
+end
 
 until game.finished?
   players.each do |player|
     # This moves the cursor back to the upper-left of the screen
+    def move_to_home!
+  print "\e[H"
+end
+
+def reputs(str = '')
+  puts "\e[0K" + str
+end
+
+def flush!
+  $stdout.flush
+end
     move_to_home!
   
     # We print the board first so we see the initial, starting board
